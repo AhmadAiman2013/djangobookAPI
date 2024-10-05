@@ -9,5 +9,13 @@ class CustomUser(AbstractUser):
     ]
     role = models.CharField(max_length=20, choices=ROLE_CHOICES, default="user")
 
-
+class Books(models.Model):
+    
+    title = models.CharField()
+    author = models.CharField()
+    description = models.TextField()
+    price = models.DecimalField()
+    genre = models.CharField()
+    publication_date = models.DateField()
+    
 

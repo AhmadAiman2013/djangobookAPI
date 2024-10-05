@@ -1,6 +1,7 @@
-from api.models import CustomUser
+from api.models import CustomUser, Books
 from rest_framework import serializers
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -21,3 +22,24 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
         token['role'] = user.role
         
         return token
+
+class BooksSerializer(serializers.ModelSerializer):
+    
+    class Meta:
+        model = Books
+        fields = ['id', 'title', 'author', 'description', 'price', 'genre', 'publication_date']
+    
+    def validate(self, attrs):
+        return super().validate(attrs)
+    
+    def update(self, instance, validated_data):
+        
+        allowed_fields = ['title', 'description', 'price']
+        
+        for field in allowed_fields:
+            if field in validated_data:
+                setattr(instance, field, validated_data[field])
+        
+        instance.save()
+        
+        return instance
