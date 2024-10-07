@@ -11,11 +11,11 @@ class CustomUser(AbstractUser):
 
 class Books(models.Model):
     
-    title = models.CharField()
-    author = models.CharField()
+    title = models.CharField(max_length=100)
+    author = models.CharField(max_length=100)
     description = models.TextField()
-    price = models.DecimalField()
-    genre = models.CharField()
+    price = models.DecimalField(decimal_places=0, max_digits=3)
+    genre = models.CharField(max_length=100)
     publication_date = models.DateField()
     
 
